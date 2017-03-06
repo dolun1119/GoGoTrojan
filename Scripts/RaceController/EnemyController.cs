@@ -8,6 +8,20 @@ public class EnemyController : MonoBehaviour {
 	public Image HealthBar;
 	public Image CDBar;
 
+	public int NumberOfChar;
+	// 	different skills for characters:
+	//	Number		Character				Passive	Skill			Active Skill	
+	//	1.			Marshall				Coin x2					Coins attack		
+	//	2.			Viterbi					item效果增強				防護罩
+	//	3.			Football Player			血多						衝撞		
+	//	4.			Med Student				補血 x2					回血		
+	//	5.			Cinema					集氣快					freeze others
+	//  6.			...						...						...
+
+
+
+	//  Now we have Nitro & Freeze
+
 	private bool isDead = false;
 
 	public float maxHealthPoint = 100;
@@ -35,6 +49,8 @@ public class EnemyController : MonoBehaviour {
 				currentCDPoint = maxCDPoint;
 
 				// implement USEMOVE();
+				LaunchActiveSkill(NumberOfChar);
+
 				currentCDPoint = 0;
 			} else {
 				currentCDPoint += Time.deltaTime * CDspeed;
@@ -64,7 +80,7 @@ public class EnemyController : MonoBehaviour {
 		UpdateCDBar ();
 	}
 
-	public void takeDamage (float damage) {
+	public void TakeDamage (float damage) {
 
 		currentHealthPoint -= damage;
 
@@ -77,7 +93,7 @@ public class EnemyController : MonoBehaviour {
 		UpdateHealthBar ();
 	}
 
-	public void healDamage(float heal) {
+	public void HealDamage(float heal) {
 
 		if (!isDead) {
 			
@@ -94,8 +110,8 @@ public class EnemyController : MonoBehaviour {
 	private void Death() {
 		isDead = true;
 		reduceCDtoZero ();
-		GameObject.Find ("RaceC").SendMessage("setStopRacing");
-		GameObject.Find ("RaceC").SendMessage("setDead");
+		GameObject.Find (gameObject.tag).SendMessage("setStopRacing");
+		GameObject.Find (gameObject.tag).SendMessage("setDead");
 	}
 
 
@@ -105,5 +121,29 @@ public class EnemyController : MonoBehaviour {
 
 	public void SetCDstops() {
 		CDstarts = false;
+	}
+
+	public void LaunchActiveSkill(int NumberOfChar) {
+
+		switch (NumberOfChar) {
+		case 1:
+			gameObject.SendMessage("NitroStart");
+			break;
+//		case 2:
+//			skill2 ();
+//			break;
+//		case 3:
+//			skill3 ();
+//			break;
+//		case 4:
+//			skill4 ();
+//			break;
+//		case 5:
+//			skill5 ();
+//			break;
+//		case 6:
+//			skill6 ();
+//			break;
+		}
 	}
 }

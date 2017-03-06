@@ -297,7 +297,7 @@ public class AIScript : MonoBehaviour {
 
         if (reversing)
         {
-            Debug.Log("reversing");
+//            Debug.Log("reversing");
             reverseTimer += Time.deltaTime;
             avoidSensitivity *= -1;
             if (reverseTimer >= reverseFor)
@@ -317,7 +317,7 @@ public class AIScript : MonoBehaviour {
     void AvoidSteer(float sensitivity)
     {
         float newSteer = avoidSpeed * sensitivity;
-        Debug.Log("avoid steer " + newSteer);
+//        Debug.Log("avoid steer " + newSteer);
         flController.ApplySteer(newSteer);
         frController.ApplySteer(newSteer);
     }

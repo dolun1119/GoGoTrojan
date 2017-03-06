@@ -19,6 +19,24 @@ public class EnemyItemCollector : MonoBehaviour {
 	// when player get a item, the item value will be 1 ~ 6;
 	private int itemValue = 0;
 
+	// number of coins
+	private int coinCount = 0;
+
+
+	public GameObject missile;
+	public GameObject landMine;
+	public GameObject oilSpill;
+	public GameObject glue;
+	//	public GameObject shield;
+	public GameObject lightning;
+
+	public ParticleSystem shieldPS;
+
+	private bool ShieldEquipped;
+
+	public GameObject[] Players;
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -29,8 +47,7 @@ public class EnemyItemCollector : MonoBehaviour {
 		if (itemValue != 0) {
 			Debug.Log ("enemy get item no." + itemValue);
 
-			// call USEITEM()
-
+			UseItem (itemValue);
 
 			itemValue = 0;
 		}
@@ -47,52 +64,32 @@ public class EnemyItemCollector : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Coin")) {
 			other.gameObject.SetActive (false);
+
+			coinCount++;
 		}
 
 
 		if (other.gameObject.CompareTag ("Heart")) {
 			other.gameObject.SetActive (false);
 
-
-			// implement addHP(amount);
-			GameObject.Find ("RaceC").SendMessage("healDamage", 20);
+			gameObject.SendMessage("HealDamage", 20);
 		}
 
 		if (other.gameObject.CompareTag ("Poison")) {
 			other.gameObject.SetActive (false);
 
-			// implement minusHP(amount);
-			GameObject.Find ("RaceC").SendMessage("takeDamage", 50);
+			gameObject.SendMessage("TakeDamage", 50);
 		}
 
 		if (other.gameObject.CompareTag ("Arrow")) {
 			other.gameObject.SetActive (false);
 
 			int randomValue = Random.Range (1, numOfItems + 1);
+//			int randomValue = 6;
 
 			SetItemValue (randomValue);
 
-//			switch (randomValue) {
-//
-//			case 1:
-////				ItemBtnText.text = "missle";
-//				break;
-//			case 2:
-////				ItemBtnText.text = "land mine";
-//				break;
-//			case 3:
-////				ItemBtnText.text = "oil spill";
-//				break;
-//			case 4:
-////				ItemBtnText.text = "glue";
-//				break;
-//			case 5:
-////				ItemBtnText.text = "shield";
-//				break;
-//			case 6:
-////				ItemBtnText.text = "lightning";
-//				break;
-//			}
+
 		}
 	}
 
@@ -100,5 +97,99 @@ public class EnemyItemCollector : MonoBehaviour {
 	public void SetItemValue(int value) {
 
 		itemValue = value;
+	}
+
+
+	public void UseItem (int itemValue) {
+		
+		switch (itemValue) {
+		case 1:
+			Missle ();
+			break;
+		case 2:
+			LandMine ();
+			break;
+		case 3:
+			OilSpill ();
+			break;
+		case 4:
+			Glue ();
+			break;
+		case 5:
+			Shield ();
+			break;
+		case 6:
+			Lightning ();
+			break;
+		}
+					
+	}
+
+
+	public void Missle() {
+
+		// generate a missile
+		Instantiate(missile,transform.position,transform.rotation);
+
+	}
+
+	public void LandMine() {
+
+		Instantiate(landMine,transform.position,transform.rotation);
+	}
+
+	public void OilSpill() {
+
+		Instantiate(oilSpill,transform.position,transform.rotation);
+	}
+
+	public void Glue() {
+
+		Instantiate(glue,transform.position,transform.rotation);
+	}
+
+	public void Shield() {
+
+		shieldPS.Play ();
+		ShieldEquipped = true;
+		Debug.Log ("USE SHIELD");
+		Invoke ("UnequipShield", 3);
+	}
+
+
+	void UnequipShield() {
+		Debug.Log ("NO SHIELD NOW");
+		ShieldEquipped = false;
+	}
+
+	public bool IsShieldEquipped() {
+
+		return ShieldEquipped;
+	}
+
+
+	public void Lightning() {
+
+		//		GameObject enemy = GameObject.Find ("RaceC");
+		//		Instantiate(lightning, enemy.transform.position, enemy.transform.rotation);
+		//		enemy.SendMessage("TakeDamage", 20);
+
+
+		// attack all players!
+		foreach (GameObject go in Players) {
+
+			if (!go.tag.Equals(gameObject.tag)) {
+
+				Instantiate(lightning, go.transform.position, go.transform.rotation);
+
+				//				itemEffects ie = go.GetComponent<itemEffects> ();
+				//				if (!ie.IsShieldEquipped ()) {
+				go.SendMessage ("TakeDamage", 20);
+				//				}
+
+			}
+		}
+
+
 	}
 }

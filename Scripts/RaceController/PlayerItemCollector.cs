@@ -10,14 +10,14 @@ public class PlayerItemCollector : MonoBehaviour {
 	public Text ItemBtnText;
 
 	// we have total 6 kinds of items and effects
-	//	1, missle		-> 射出擊中敵人扣血
-	//	2, land mine	-> 敵人碰到扣血
-	//	3, oil spill	-> 打滑
+	//	1, missle		-> 射出擊中 敵人減速 & 扣血
+	//	2, land mine	-> 敵人碰到減速 & 扣血
+	//	3, oil spill	-> 打滑 & 減速
 	//	4, glue			-> 速度變慢一段時間
-	//	5, shield		-> 不受技能道具影響
-	//	6, lightning	-> 閃電劈所有敵人
+	//	5, shield		-> 不受技能＆道具效果影響
+	//	6, lightning	-> 閃電全範圍扣血
 
-	private int numOfItems = 2;
+	private int numOfItems = 6;
 
 	// number of coins
 	private int coinCount;
@@ -57,16 +57,14 @@ public class PlayerItemCollector : MonoBehaviour {
 		{
 			other.gameObject.SetActive (false);
 
-			// implement addHP(amount);
-			GameObject.Find ("RegularC").SendMessage("AddHealth", 20);
+			GameObject.Find (gameObject.tag).SendMessage("HealDamage", 20);
+
 		}
 
 		if (other.gameObject.CompareTag ("Poison")) 
 		{
 			other.gameObject.SetActive (false);
-
-			// implement minusHP(amount);
-			GameObject.Find ("RegularC").SendMessage("TakeDamage", 50);
+			GameObject.Find (gameObject.tag).SendMessage("TakeDamage", 50);
 		}
 
 		if (other.gameObject.CompareTag ("Arrow")) {
@@ -75,6 +73,7 @@ public class PlayerItemCollector : MonoBehaviour {
 			ItemBtn.interactable = true;
 
 			int randomValue = Random.Range(1, numOfItems + 1);
+//			int randomValue = 1;
 
 			SetItemValue (randomValue);
 
@@ -83,11 +82,8 @@ public class PlayerItemCollector : MonoBehaviour {
 			case 1:
 				ItemBtnText.text = "missle";
 				break;
-//			case 2:
-//				ItemBtnText.text = "land mine";
-//				break;
 			case 2:
-				ItemBtnText.text = "lightning";
+				ItemBtnText.text = "land mine";
 				break;
 			case 3:
 				ItemBtnText.text = "oil spill";

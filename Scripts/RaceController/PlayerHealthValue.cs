@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PlayerHealthValue : MonoBehaviour {
 
 
-	public int startingHealth = 100; 
-	public int currentHealth;
-	public int hurtAmount = 30;
-	public int addAmount = 25;
+	public float startingHealth = 100; 
+	public float currentHealth;
+	public float hurtAmount = 30;
+	public float addAmount = 25;
 
 	public Slider HealthSlider;
 	public Image damageImage;
@@ -56,7 +56,7 @@ public class PlayerHealthValue : MonoBehaviour {
 		
 	}
 
-	public void TakeDamage (int amount)
+	public void TakeDamage (float amount)
 	{
 		// Set the damaged flag so the screen will flash.
 		damaged = true;
@@ -75,7 +75,7 @@ public class PlayerHealthValue : MonoBehaviour {
 		}
 	}
 
-	public void AddHealth (int amount)
+	public void HealDamage (float amount)
 	{
 
 
@@ -98,7 +98,7 @@ public class PlayerHealthValue : MonoBehaviour {
 	{
 		// Set the death flag so this function won't be called again.
 		isDead = true;
-		GameObject.Find ("RegularC").SendMessage("DeathFinnish");
+		GameObject.Find (gameObject.tag).SendMessage("DeathFinnish");
 	}
 
 	public bool isPlayerDead() 

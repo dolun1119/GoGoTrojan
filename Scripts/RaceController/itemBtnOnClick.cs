@@ -33,7 +33,7 @@ public class itemBtnOnClick : MonoBehaviour {
 		int itemValue = playerItemCollector.GetItemValue ();
 		Debug.Log("itemValue = " + itemValue.ToString ());
 
-		GameObject.Find ("RegularC").SendMessage("UseItem" , itemValue);
+		GameObject.Find ("Player0").SendMessage("UseItem" , itemValue);
 
 
 	}

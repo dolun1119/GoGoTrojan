@@ -56,6 +56,7 @@ public class raceManager : MonoBehaviour {
 
 		coinCount = playerIC.GetCoinNumber ();
 		int rankInt = rank.GetCarPosition ();
+		PlayerPrefs.SetInt ("Ranking", rankInt);
 		position = AddOrdinal(rankInt);
 		isDead = playerHealth.isPlayerDead ();
 
@@ -76,6 +77,7 @@ public class raceManager : MonoBehaviour {
 		CoinCountText.text = "coin x " + coinCount;
 		RankText.text = "rank: " + position;
 		TimeRecordText.text = "time: " + ptimer.GetTotalTime ();
+		PlayerPrefs.SetString ("Time",ptimer.GetTotalTime ());
 		WinLoseText.text = winOrLose;
 		TotalScoreText.text = "Total Score: " + PlayerPrefs.GetInt ("TotalCoins");
 		StatImage.gameObject.SetActive(true);

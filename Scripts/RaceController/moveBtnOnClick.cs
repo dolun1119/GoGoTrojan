@@ -7,6 +7,7 @@ public class moveBtnOnClick : MonoBehaviour {
 
 	public Button MoveBtn;
 	public Text MoveBtnText;
+	public int NumberOfChar; // passed from choice of character
 
 
 	// Use this for initialization
@@ -25,10 +26,31 @@ public class moveBtnOnClick : MonoBehaviour {
 
 		MoveBtn.interactable = false;
 		MoveBtnText.text = "";
-		GameObject.Find ("RegularC").SendMessage("CDUsed");
+		GameObject.Find ("Player0").SendMessage("CDUsed");
 		//		PlayerCoolDownValue cdv = GameObject.FindGameObjectWithTag ("MyCar").GetComponent<PlayerCoolDownValue> ();
 		//		cdv.CDUsed ();
-		GameObject.Find ("RegularC").SendMessage("NitroStart");
+
+
+		switch (NumberOfChar) {
+		case 1:
+			GameObject.Find ("Player0").SendMessage("NitroStart");
+			break;
+//		case 2:
+//			skill2 ();
+//			break;
+//		case 3:
+//			skill3 ();
+//			break;
+//		case 4:
+//			skill4 ();
+//			break;
+//		case 5:
+//			skill5 ();
+//			break;
+//		case 6:
+//			skill6 ();
+//			break;
+		}
 
 	}
 }

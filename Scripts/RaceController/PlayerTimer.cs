@@ -53,8 +53,9 @@ public class PlayerTimer : MonoBehaviour {
 
 //				GameObject.Find ("RegularC").SendMessage("setStartRacing");
 //				GameObject.Find ("RaceC").SendMessage("setStartRacing");
-				GameObject.Find ("RegularC").SendMessage("SetCDstarts");
-				GameObject.Find ("RaceC").SendMessage("SetCDstarts");
+				GameObject.Find ("Player0").SendMessage("SetCDstarts");
+				GameObject.Find ("Player1").SendMessage("SetCDstarts");
+				GameObject.Find ("Player2").SendMessage("SetCDstarts");
 				canStartRacing = true;
 			}
 
@@ -85,8 +86,8 @@ public class PlayerTimer : MonoBehaviour {
 //		GameObject.Find ("RegularC").SendMessage("setGameOver");
 //		GameObject.Find ("RaceC").SendMessage("setStopRacing");
 //		GameObject.Find ("RegularC").SendMessage("SetCDstops");
-		GameObject.Find ("RegularC").SendMessage("StopComputeRanking");
-		GameObject.Find ("RegularC").SendMessage("GameOver");
+		GameObject.Find ("Player0").SendMessage("StopComputeRanking");
+		GameObject.Find ("Player0").SendMessage("GameOver");
 
 	}
 
@@ -96,8 +97,8 @@ public class PlayerTimer : MonoBehaviour {
 //		GameObject.Find ("RegularC").SendMessage("setGameOver");
 //		GameObject.Find ("RaceC").SendMessage("setStopRacing");
 //		GameObject.Find ("RegularC").SendMessage("SetCDstops");
-		GameObject.Find ("RegularC").SendMessage("StopComputeRanking");
-		GameObject.Find ("RegularC").SendMessage("GameOver");
+		GameObject.Find ("Player0").SendMessage("StopComputeRanking");
+		GameObject.Find ("Player0").SendMessage("GameOver");
 
 	}
 
